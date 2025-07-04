@@ -15,7 +15,6 @@ export class CreatePostDto {
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(1000)
   body: string;
 
   @IsUUID()

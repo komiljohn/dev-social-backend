@@ -7,6 +7,7 @@ import { mikroOrmConfigFactory } from './configs/mikro-orm.config';
 import { UserModule } from './modules/user/user.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { EducationModule } from './modules/education/education.module';
+import { ExperienceModule } from './modules/experience/experience.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { EducationModule } from './modules/education/education.module';
     UserModule,
     PostsModule,
     EducationModule,
+    ExperienceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

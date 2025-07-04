@@ -12,11 +12,11 @@ export class Post extends BaseEntity {
   @Property({ nullable: false, length: 30 })
   title!: string;
 
-  @Property({ type: 'text', nullable: false, length: 1000 })
+  @Property({ type: 'text', nullable: false })
   body!: string;
 
   @ManyToOne(() => User, { deleteRule: 'cascade' })
-  user: User;
+  user!: User;
 
   @Enum(() => PostStatus)
   status: PostStatus = PostStatus.ACTIVE;

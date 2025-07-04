@@ -3,15 +3,18 @@ import { User } from 'src/modules/user/entities/user.entity';
 import { BaseEntity } from 'src/shared/entities/base.entity';
 
 @Entity()
-export class Education extends BaseEntity {
+export class Experience extends BaseEntity {
   @Property({ nullable: false, length: 30 })
-  school!: string;
+  company!: string;
 
-  @Property({ nullable: false, length: 30 })
-  degree!: string;
+  @Property({ nullable: false, length: 50 })
+  position!: string;
 
-  @Property({ nullable: false, length: 30 })
-  speciality!: string;
+  @Property({ type: 'text', nullable: false })
+  description!: string;
+
+  @Property({ nullable: false, length: 50 })
+  location!: string;
 
   @Property({ nullable: false })
   from!: Date;
