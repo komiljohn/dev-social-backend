@@ -9,6 +9,7 @@ import { PostsModule } from './modules/posts/posts.module';
 import { EducationModule } from './modules/education/education.module';
 import { ExperienceModule } from './modules/experience/experience.module';
 import { CommentModule } from './modules/comment/comment.module';
+import { LikeModule } from './modules/like/like.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CommentModule } from './modules/comment/comment.module';
     EducationModule,
     ExperienceModule,
     CommentModule,
+    LikeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
