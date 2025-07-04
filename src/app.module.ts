@@ -8,6 +8,7 @@ import { UserModule } from './modules/user/user.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { EducationModule } from './modules/education/education.module';
 import { ExperienceModule } from './modules/experience/experience.module';
+import { CommentModule } from './modules/comment/comment.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ExperienceModule } from './modules/experience/experience.module';
     PostsModule,
     EducationModule,
     ExperienceModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UserService } from '../user/user.service';
 import { InjectRepository } from '@mikro-orm/nestjs';
@@ -24,5 +24,13 @@ export class PostsService {
     await this.em.persistAndFlush(post);
 
     return post;
+  }
+
+  async findOneOrFail(id: string) {
+    const user = await this.postRepo.findOne({ id });
+
+    if (!user) throw new NotFoundException('Post not found');
+
+    return user;
   }
 }

@@ -9,5 +9,6 @@ import { Post } from './entities/post.entity';
   controllers: [PostsController],
   providers: [PostsService],
   imports: [UserModule, MikroOrmModule.forFeature([Post])],
+  exports: [PostsService],
 })
 export class PostsModule {}
