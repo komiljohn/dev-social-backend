@@ -15,9 +15,7 @@ export class Post extends BaseEntity {
   @Property({ type: 'text', nullable: false, length: 1000 })
   body!: string;
 
-  @ManyToOne(() => User, {
-    deleteRule: 'cascade',
-  })
+  @ManyToOne(() => User, { deleteRule: 'cascade' })
   user: User;
 
   @Enum(() => PostStatus)
