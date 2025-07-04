@@ -1,12 +1,15 @@
 import {
+  IsArray,
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUrl,
   MaxLength,
 } from 'class-validator';
 import { UserStatus } from '../entities/user.entity';
+import { Post } from 'src/modules/posts/entities/post.entity';
 
 export class CreateUserDto {
   @IsEmail()
@@ -21,6 +24,12 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  @MaxLength(50)
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(1000)
   bio: string;
 
   @IsString()
@@ -71,4 +80,8 @@ export class CreateUserDto {
   @IsUrl()
   @MaxLength(50)
   linkedin: string;
+
+  @IsArray()
+  @IsOptional()
+  posts: Post[];
 }

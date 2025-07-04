@@ -1,5 +1,13 @@
-import { Entity, Enum, PrimaryKey, Property, TextType } from '@mikro-orm/core';
-import { v4 } from 'uuid';
+import {
+  Collection,
+  Entity,
+  Enum,
+  OneToMany,
+  Property,
+  TextType,
+} from '@mikro-orm/core';
+import { Post } from 'src/modules/posts/entities/post.entity';
+import { BaseEntity } from 'src/shared/entities/base.entity';
 
 export enum UserStatus {
   ACTIVE = 'active',
@@ -7,17 +15,17 @@ export enum UserStatus {
 }
 
 @Entity()
-export class User {
-  @PrimaryKey({ type: 'uuid' })
-  id: string = v4();
-
-  @Property({ nullable: false, length: 30 })
+export class User extends BaseEntity {
+  @Property({ nullable: false, length: 30, unique: true })
   email!: string;
 
   @Property({ nullable: false, length: 30 })
   password!: string;
 
-  @Property({ type: TextType, nullable: false })
+  @Property({ nullable: false, length: 50 })
+  name!: string;
+
+  @Property({ type: TextType, nullable: false, length: 1000 })
   bio!: string;
 
   @Property({ nullable: false, length: 30 })
@@ -31,6 +39,9 @@ export class User {
 
   @Enum(() => UserStatus)
   status: UserStatus = UserStatus.ACTIVE;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts = new Collection<Post>(this);
 
   @Property({ length: 50 })
   website: string;

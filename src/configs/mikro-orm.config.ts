@@ -20,11 +20,5 @@ export function mikroOrmConfigFactory(
       pathTs: 'src/migrations',
       emit: 'ts',
     },
-    filters: {
-      notDeleted: {
-        cond: () => ({ isDeleted: false }),
-        default: true,
-      },
-    },
   };
 }

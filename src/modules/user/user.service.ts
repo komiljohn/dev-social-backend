@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { EntityManager, EntityRepository } from '@mikro-orm/core';
@@ -13,25 +17,40 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const createUser = this.userRepo.create(createUserDto);
+    const { email } = createUserDto;
 
-    await this.em.persistAndFlush([createUser]);
+    const userExists = await this.userRepo.findOne({ email });
+
+    if (userExists)
+      throw new ConflictException('User with this email already exists');
+
+    const user = this.userRepo.create({
+      ...createUserDto,
+    });
+
+    await this.em.persistAndFlush([user]);
+
+    return user;
   }
 
   findAll() {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOneOrFail(id: string) {
+    const user = await this.userRepo.findOne({ id });
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: string, updateUserDto: UpdateUserDto) {
     console.log(updateUserDto);
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} user`;
   }
 }

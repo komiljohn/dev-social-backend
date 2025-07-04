@@ -5,6 +5,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { mikroOrmConfigFactory } from './configs/mikro-orm.config';
 import { UserModule } from './modules/user/user.module';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UserModule } from './modules/user/user.module';
       inject: [ConfigService],
     }),
     UserModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
