@@ -10,6 +10,7 @@ import { EducationModule } from './modules/education/education.module';
 import { ExperienceModule } from './modules/experience/experience.module';
 import { CommentModule } from './modules/comment/comment.module';
 import { LikeModule } from './modules/like/like.module';
+import { FollowModule } from './modules/follow/follow.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { LikeModule } from './modules/like/like.module';
     ExperienceModule,
     CommentModule,
     LikeModule,
+    FollowModule,
   ],
   controllers: [AppController],
   providers: [AppService],
