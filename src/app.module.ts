@@ -11,6 +11,7 @@ import { ExperienceModule } from './modules/experience/experience.module';
 import { CommentModule } from './modules/comment/comment.module';
 import { LikeModule } from './modules/like/like.module';
 import { FollowModule } from './modules/follow/follow.module';
+import { SkillModule } from './modules/skill/skill.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FollowModule } from './modules/follow/follow.module';
     CommentModule,
     LikeModule,
     FollowModule,
+    SkillModule,
   ],
   controllers: [AppController],
   providers: [AppService],

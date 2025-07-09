@@ -2,11 +2,13 @@ import {
   Collection,
   Entity,
   Enum,
+  ManyToMany,
   OneToMany,
   Property,
   TextType,
 } from '@mikro-orm/core';
 import { Post } from 'src/modules/posts/entities/post.entity';
+import { Skill } from 'src/modules/skill/entities/skill.entity';
 import { BaseEntity } from 'src/shared/entities/base.entity';
 
 export enum UserStatus {
@@ -60,4 +62,10 @@ export class User extends BaseEntity {
 
   @Property({ length: 50 })
   linkedin: string;
+
+  @ManyToMany(() => Skill, (skill) => skill.users, {
+    owner: true,
+    pivotTable: 'user_skill',
+  })
+  skills = new Collection<Skill>(this);
 }
