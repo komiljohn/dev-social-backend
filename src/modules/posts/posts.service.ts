@@ -26,11 +26,15 @@ export class PostsService {
     return post;
   }
 
+  async findAll() {
+    return this.postRepo.findAll();
+  }
+
   async findOneOrFail(id: string) {
-    const user = await this.postRepo.findOne({ id });
+    const post = await this.postRepo.findOne({ id });
 
-    if (!user) throw new NotFoundException('Post not found');
+    if (!post) throw new NotFoundException('Post not found');
 
-    return user;
+    return post;
   }
 }

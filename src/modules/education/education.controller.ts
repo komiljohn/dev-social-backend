@@ -10,7 +10,9 @@ import {
 import { EducationService } from './education.service';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
+import { Authorization } from 'src/decorators/authorization.decorator';
 
+@Authorization()
 @Controller('education')
 export class EducationController {
   constructor(private readonly educationService: EducationService) {}

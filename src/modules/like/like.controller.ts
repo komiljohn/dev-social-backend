@@ -10,7 +10,9 @@ import {
 import { LikeService } from './like.service';
 import { CreateLikeDto } from './dto/create-like.dto';
 import { UpdateLikeDto } from './dto/update-like.dto';
+import { Authorization } from 'src/decorators/authorization.decorator';
 
+@Authorization()
 @Controller('like')
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}

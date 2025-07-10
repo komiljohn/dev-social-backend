@@ -9,6 +9,7 @@ import { EntityManager, EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { User } from './entities/user.entity';
 import { Skill } from '../skill/entities/skill.entity';
+import { hash } from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -27,8 +28,11 @@ export class UserService {
     if (userExists)
       throw new ConflictException('User with this email already exists');
 
+    const hashedPassword = await hash(createUserDto.password, 10);
+
     const user = this.userRepo.create({
       ...createUserDto,
+      password: hashedPassword,
     });
 
     await this.em.persistAndFlush([user]);
@@ -44,6 +48,18 @@ export class UserService {
     const user = await this.userRepo.findOne({ id });
 
     if (!user) throw new NotFoundException('User not found');
+
+    return user;
+  }
+
+  async findOne(id: string) {
+    const user = await this.userRepo.findOne({ id });
+
+    return user;
+  }
+
+  async findOneByEmail(email: string) {
+    const user = await this.userRepo.findOne({ email });
 
     return user;
   }

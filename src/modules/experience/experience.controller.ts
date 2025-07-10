@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ExperienceService } from './experience.service';
 import { CreateExperienceDto } from './dto/create-experience.dto';
 import { UpdateExperienceDto } from './dto/update-experience.dto';
+import { Authorization } from 'src/decorators/authorization.decorator';
 
+@Authorization()
 @Controller('experience')
 export class ExperienceController {
   constructor(private readonly experienceService: ExperienceService) {}
@@ -23,7 +33,10 @@ export class ExperienceController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExperienceDto: UpdateExperienceDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateExperienceDto: UpdateExperienceDto,
+  ) {
     return this.experienceService.update(+id, updateExperienceDto);
   }
 
