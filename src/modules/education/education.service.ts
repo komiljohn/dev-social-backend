@@ -5,6 +5,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Education } from './entities/education.entity';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { UserService } from '../user/user.service';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class EducationService {
@@ -15,14 +16,12 @@ export class EducationService {
     private readonly postRepo: EntityRepository<Education>,
   ) {}
 
-  async create(createEducationDto: CreateEducationDto) {
-    const user = await this.userService.findOneOrFail(
-      createEducationDto.userId,
-    );
+  async create(createEducationDto: CreateEducationDto, user: User) {
+    const userEntity = await this.userService.findOneOrFail(user.id);
 
     const education = this.postRepo.create({
       ...createEducationDto,
-      user,
+      user: userEntity,
     });
 
     await this.em.persistAndFlush(education);

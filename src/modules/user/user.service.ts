@@ -3,13 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { EntityManager, EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { User } from './entities/user.entity';
 import { Skill } from '../skill/entities/skill.entity';
 import { hash } from 'bcryptjs';
+import { RegisterDto } from '../auth/dto/register.dto';
 
 @Injectable()
 export class UserService {
@@ -20,7 +20,7 @@ export class UserService {
     private readonly skillRepository: EntityRepository<Skill>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: RegisterDto) {
     const { email } = createUserDto;
 
     const userExists = await this.userRepo.findOne({ email });

@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MikroORM } from '@mikro-orm/core';
 import { ValidationPipe } from '@nestjs/common';
+import { setupSwagger } from './utils/swagger.util';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

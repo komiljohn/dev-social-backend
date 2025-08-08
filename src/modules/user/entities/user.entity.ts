@@ -27,41 +27,41 @@ export class User extends BaseEntity {
   @Property({ nullable: false, length: 50 })
   name!: string;
 
-  @Property({ type: TextType, nullable: false, length: 1000 })
-  bio!: string;
+  @Property({ type: TextType, length: 1000, nullable: true })
+  bio?: string;
 
-  @Property({ nullable: false, length: 30 })
-  company!: string;
+  @Property({ length: 30, nullable: true })
+  company?: string;
 
-  @Property({ nullable: false, length: 30 })
-  location!: string;
+  @Property({ length: 30, nullable: true })
+  location?: string;
 
-  @Property({ nullable: false, length: 30 })
-  github_username!: string;
+  @Property({ length: 30, nullable: true })
+  github_username?: string;
 
   @Enum(() => UserStatus)
-  status: UserStatus = UserStatus.ACTIVE;
+  status?: UserStatus = UserStatus.ACTIVE;
 
   @OneToMany(() => Post, (post) => post.user)
   posts = new Collection<Post>(this);
 
-  @Property({ length: 50 })
-  website: string;
+  @Property({ length: 50, nullable: true })
+  website?: string;
 
-  @Property({ length: 50 })
-  youtube: string;
+  @Property({ length: 50, nullable: true })
+  youtube?: string;
 
-  @Property({ length: 50 })
-  twitter: string;
+  @Property({ length: 50, nullable: true })
+  twitter?: string;
 
-  @Property({ length: 50 })
-  instagram: string;
+  @Property({ length: 50, nullable: true })
+  instagram?: string;
 
-  @Property({ length: 50 })
-  facebook: string;
+  @Property({ length: 50, nullable: true })
+  facebook?: string;
 
-  @Property({ length: 50 })
-  linkedin: string;
+  @Property({ length: 50, nullable: true })
+  linkedin?: string;
 
   @ManyToMany(() => Skill, (skill) => skill.users, {
     owner: true,

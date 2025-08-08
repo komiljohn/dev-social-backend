@@ -11,6 +11,8 @@ import { EducationService } from './education.service';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
 import { Authorization } from 'src/decorators/authorization.decorator';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from '../user/entities/user.entity';
 
 @Authorization()
 @Controller('education')
@@ -18,8 +20,11 @@ export class EducationController {
   constructor(private readonly educationService: EducationService) {}
 
   @Post()
-  create(@Body() createEducationDto: CreateEducationDto) {
-    return this.educationService.create(createEducationDto);
+  create(
+    @Body() createEducationDto: CreateEducationDto,
+    @CurrentUser() user: User,
+  ) {
+    return this.educationService.create(createEducationDto, user);
   }
 
   @Get()

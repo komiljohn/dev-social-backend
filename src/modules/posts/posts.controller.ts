@@ -36,14 +36,9 @@ export class PostsController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updatePostDto: UpdatePostDto,
-    @CurrentUser() user: User,
-  ) {
+  async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     const updatedPost = await this.postsService.update(id, {
       ...updatePostDto,
-      userId: user.id,
     });
     return updatedPost;
   }
@@ -53,7 +48,7 @@ export class PostsController {
     @Body() createPostDto: CreatePostDto,
     @CurrentUser() user: User,
   ) {
-    return this.postsService.create({ ...createPostDto, userId: user.id });
+    return this.postsService.create(createPostDto, user);
   }
 
   @Post('like')

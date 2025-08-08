@@ -10,9 +10,9 @@ import { compare } from 'bcryptjs';
 import type { Request, Response } from 'express';
 import isDev from 'src/utils/is-dev.util';
 import { JwtPayload } from 'src/interfaces/jwt.interface';
-import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { UserService } from '../user/user.service';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -78,7 +78,7 @@ export class AuthService {
     return user;
   }
 
-  async register(res: Response, dto: CreateUserDto) {
+  async register(res: Response, dto: RegisterDto) {
     const existUser = await this.userService.findOneByEmail(dto.email);
 
     if (existUser) {

@@ -28,12 +28,12 @@ export class PostsService {
     private readonly commentRepo: EntityRepository<Comment>,
   ) {}
 
-  async create(createPostDto: CreatePostDto) {
-    const user = await this.userService.findOneOrFail(createPostDto.userId);
+  async create(createPostDto: CreatePostDto, user: User) {
+    const userEntity = await this.userService.findOneOrFail(user.id);
 
     const post = this.postRepo.create({
       ...createPostDto,
-      user,
+      user: userEntity,
     });
 
     await this.em.persistAndFlush(post);

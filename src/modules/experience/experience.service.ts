@@ -5,6 +5,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { UserService } from '../user/user.service';
 import { CreateExperienceDto } from './dto/create-experience.dto';
 import { Experience } from './entities/experience.entity';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class ExperienceService {
@@ -15,14 +16,12 @@ export class ExperienceService {
     private readonly postRepo: EntityRepository<Experience>,
   ) {}
 
-  async create(createExperienceDto: CreateExperienceDto) {
-    const user = await this.userService.findOneOrFail(
-      createExperienceDto.userId,
-    );
+  async create(createExperienceDto: CreateExperienceDto, user: User) {
+    const userEntity = await this.userService.findOneOrFail(user.id);
 
     const experience = this.postRepo.create({
       ...createExperienceDto,
-      user,
+      user: userEntity,
     });
 
     await this.em.persistAndFlush(experience);
